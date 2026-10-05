@@ -1,0 +1,48 @@
+{
+  "supplier_name": "Northgate Dairy & Meats",
+  "invoice_number": "NDM-1004",
+  "invoice_date": "2026-07-15",
+  "subtotal": 1527.0,
+  "line_items": [
+    {
+      "description": "FRESH MILK 2L",
+      "quantity": 80,
+      "unit_price": 5.6,
+      "line_total": 448.0,
+      "pack_size": 2,
+      "pack_unit": "L"
+    },
+    {
+      "description": "BUTTER UNSALTED 250G",
+      "quantity": 80,
+      "unit_price": 3.8,
+      "line_total": 304.0,
+      "pack_size": 250,
+      "pack_unit": "g"
+    },
+    {
+      "description": "CHICKEN THIGH BONELESS",
+      "quantity": 60,
+      "unit_price": 9.8,
+      "line_total": 588.0,
+      "pack_size": 1,
+      "pack_unit": "kg"
+    },
+    {
+      "description": "EGGS LARGE TRAY/30",
+      "quantity": 10,
+      "unit_price": 8.7,
+      "line_total": 87.0,
+      "pack_size": 30,
+      "pack_unit": "each"
+    },
+    {
+      "description": "CREAM CHEESE 1KG BLOCK",
+      "quantity": 8,
+      "unit_price": 12.5,
+      "line_total": 100.0,
+      "pack_size": 1,
+      "pack_unit": "kg"
+    }
+  ]
+}

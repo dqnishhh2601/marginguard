@@ -1,0 +1,48 @@
+{
+  "supplier_name": "HARBOURLINE DRY GOODS PTE LTD",
+  "invoice_number": "HDG/2026/1001",
+  "invoice_date": "2026-04-10",
+  "subtotal": 1390.0,
+  "line_items": [
+    {
+      "description": "Cooking Oil 5L tin",
+      "quantity": 20,
+      "unit_price": 18.5,
+      "line_total": 370.0,
+      "pack_size": 5,
+      "pack_unit": "L"
+    },
+    {
+      "description": "Jasmine Rice 25kg bag",
+      "quantity": 8,
+      "unit_price": 42.0,
+      "line_total": 336.0,
+      "pack_size": 25,
+      "pack_unit": "kg"
+    },
+    {
+      "description": "Plain Flour 10kg bag",
+      "quantity": 12,
+      "unit_price": 16.0,
+      "line_total": 192.0,
+      "pack_size": 10,
+      "pack_unit": "kg"
+    },
+    {
+      "description": "White Sugar 5kg bag",
+      "quantity": 10,
+      "unit_price": 7.2,
+      "line_total": 72.0,
+      "pack_size": 5,
+      "pack_unit": "kg"
+    },
+    {
+      "description": "Coffee Beans House Blend 1kg pkt",
+      "quantity": 15,
+      "unit_price": 28.0,
+      "line_total": 420.0,
+      "pack_size": 1,
+      "pack_unit": "kg"
+    }
+  ]
+}

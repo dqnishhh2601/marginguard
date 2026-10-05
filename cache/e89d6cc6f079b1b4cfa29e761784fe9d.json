@@ -1,0 +1,99 @@
+{
+  "items": [
+    {
+      "id": 0,
+      "canonical_name": "Eggs, large",
+      "category": "Dairy & eggs"
+    },
+    {
+      "id": 1,
+      "canonical_name": "Lemons",
+      "category": "Produce"
+    },
+    {
+      "id": 2,
+      "canonical_name": "Romaine lettuce",
+      "category": "Produce"
+    },
+    {
+      "id": 3,
+      "canonical_name": "Brown onions",
+      "category": "Produce"
+    },
+    {
+      "id": 4,
+      "canonical_name": "Roma tomatoes",
+      "category": "Produce"
+    },
+    {
+      "id": 5,
+      "canonical_name": "Romaine lettuce",
+      "category": "Produce"
+    },
+    {
+      "id": 6,
+      "canonical_name": "Roma tomatoes",
+      "category": "Produce"
+    },
+    {
+      "id": 7,
+      "canonical_name": "Coffee beans, house blend",
+      "category": "Beverages"
+    },
+    {
+      "id": 8,
+      "canonical_name": "Cooking oil",
+      "category": "Dry goods"
+    },
+    {
+      "id": 9,
+      "canonical_name": "Jasmine rice",
+      "category": "Dry goods"
+    },
+    {
+      "id": 10,
+      "canonical_name": "Jasmine rice",
+      "category": "Dry goods"
+    },
+    {
+      "id": 11,
+      "canonical_name": "Plain flour",
+      "category": "Dry goods"
+    },
+    {
+      "id": 12,
+      "canonical_name": "Plain flour",
+      "category": "Dry goods"
+    },
+    {
+      "id": 13,
+      "canonical_name": "White sugar",
+      "category": "Dry goods"
+    },
+    {
+      "id": 14,
+      "canonical_name": "Unsalted butter",
+      "category": "Dairy & eggs"
+    },
+    {
+      "id": 15,
+      "canonical_name": "Boneless chicken thigh",
+      "category": "Meat & seafood"
+    },
+    {
+      "id": 16,
+      "canonical_name": "Cream cheese",
+      "category": "Dairy & eggs"
+    },
+    {
+      "id": 17,
+      "canonical_name": "Eggs, large",
+      "category": "Dairy & eggs"
+    },
+    {
+      "id": 18,
+      "canonical_name": "Fresh milk",
+      "category": "Dairy & eggs"
+    }
+  ]
+}

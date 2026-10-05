@@ -1,0 +1,45 @@
+{
+  "headline": "Address cooking oil and plain flour cost increases urgently.",
+  "actions": [
+    {
+      "finding_id": "F1",
+      "title": "Cooking Oil Price Increase",
+      "advice": "Request the old price of $3.70/L from HARBOURLINE DRY GOODS PTE LTD."
+    },
+    {
+      "finding_id": "F3",
+      "title": "Plain Flour Hidden Increase",
+      "advice": "Ask HARBOURLINE DRY GOODS PTE LTD to revert to the 10kg pack at $16.00."
+    },
+    {
+      "finding_id": "F2",
+      "title": "Butter Price Increase",
+      "advice": "Consider buying unsalted butter in bulk to reduce costs."
+    },
+    {
+      "finding_id": "F4",
+      "title": "Milk Price Increase",
+      "advice": "Adjust the menu price of milk-based items to cover the extra cost."
+    },
+    {
+      "finding_id": "F5",
+      "title": "Rice Price Increase",
+      "advice": "Buy jasmine rice in larger quantities to reduce per kg cost."
+    },
+    {
+      "finding_id": "F6",
+      "title": "Onions Price Increase",
+      "advice": "Request a quote from another supplier for brown onions."
+    },
+    {
+      "finding_id": "F7",
+      "title": "Cheaper Eggs",
+      "advice": "Switch to Northgate Dairy & Meats for eggs to save $250/year."
+    }
+  ],
+  "email": {
+    "supplier": "HARBOURLINE DRY GOODS PTE LTD",
+    "subject": "Request for Price Reversion",
+    "body": "Dear HARBOURLINE DRY GOODS PTE LTD,\n\nI noticed recent price increases for cooking oil and plain flour. Could you please revert to the previous prices of $3.70/L for cooking oil and the 10kg pack of plain flour at $16.00? These changes significantly impact our budget.\n\nThank you for your understanding and support.\n\nBest regards,\n[Your name], [Your business]"
+  }
+}

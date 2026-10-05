@@ -1,0 +1,1202 @@
+[
+  {
+    "file": "greenleaf_2026-04-06.pdf",
+    "supplier_name": "GreenLeaf Produce Co.",
+    "invoice_number": "GL-1001",
+    "invoice_date": "2026-04-06",
+    "subtotal": 449.1,
+    "total": 489.52,
+    "line_items": [
+      {
+        "description": "Tomatoes, Roma",
+        "quantity": 30,
+        "unit_price": 3.19,
+        "line_total": 95.7,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Romaine Lettuce",
+        "quantity": 20,
+        "unit_price": 4.76,
+        "line_total": 95.2,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Onions Brown - 10kg bag",
+        "quantity": 6,
+        "unit_price": 14.0,
+        "line_total": 84.0,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Eggs, large (tray of 30)",
+        "quantity": 12,
+        "unit_price": 9.5,
+        "line_total": 114.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "Lemons",
+        "quantity": 10,
+        "unit_price": 6.02,
+        "line_total": 60.2,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "greenleaf_2026-04-20.pdf",
+    "supplier_name": "GreenLeaf Produce Co.",
+    "invoice_number": "GL-1002",
+    "invoice_date": "2026-04-20",
+    "subtotal": 448.9,
+    "total": 489.3,
+    "line_items": [
+      {
+        "description": "Tomatoes, Roma",
+        "quantity": 30,
+        "unit_price": 3.17,
+        "line_total": 95.1,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Romaine Lettuce",
+        "quantity": 20,
+        "unit_price": 4.8,
+        "line_total": 96.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Onions Brown - 10kg bag",
+        "quantity": 6,
+        "unit_price": 14.0,
+        "line_total": 84.0,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Eggs, large (tray of 30)",
+        "quantity": 12,
+        "unit_price": 9.5,
+        "line_total": 114.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "Lemons",
+        "quantity": 10,
+        "unit_price": 5.98,
+        "line_total": 59.8,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "greenleaf_2026-05-04.pdf",
+    "supplier_name": "GreenLeaf Produce Co.",
+    "invoice_number": "GL-1003",
+    "invoice_date": "2026-05-04",
+    "subtotal": 448.4,
+    "total": 488.76,
+    "line_items": [
+      {
+        "description": "Tomatoes, Roma",
+        "quantity": 30,
+        "unit_price": 3.17,
+        "line_total": 95.1,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Romaine Lettuce",
+        "quantity": 20,
+        "unit_price": 4.8,
+        "line_total": 96.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Onions Brown - 10kg bag",
+        "quantity": 6,
+        "unit_price": 14.0,
+        "line_total": 84.0,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Eggs, large (tray of 30)",
+        "quantity": 12,
+        "unit_price": 9.5,
+        "line_total": 114.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "Lemons",
+        "quantity": 10,
+        "unit_price": 5.93,
+        "line_total": 59.3,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "greenleaf_2026-05-18.pdf",
+    "supplier_name": "GreenLeaf Produce Co.",
+    "invoice_number": "GL-1004",
+    "invoice_date": "2026-05-18",
+    "subtotal": 448.1,
+    "total": 488.43,
+    "line_items": [
+      {
+        "description": "Tomatoes, Roma",
+        "quantity": 30,
+        "unit_price": 3.19,
+        "line_total": 95.7,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Romaine Lettuce",
+        "quantity": 20,
+        "unit_price": 4.75,
+        "line_total": 95.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Onions Brown - 10kg bag",
+        "quantity": 6,
+        "unit_price": 14.0,
+        "line_total": 84.0,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Eggs, large (tray of 30)",
+        "quantity": 12,
+        "unit_price": 9.5,
+        "line_total": 114.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "Lemons",
+        "quantity": 10,
+        "unit_price": 5.94,
+        "line_total": 59.4,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "greenleaf_2026-06-01.pdf",
+    "supplier_name": "GreenLeaf Produce Co.",
+    "invoice_number": "GL-1005",
+    "invoice_date": "2026-06-01",
+    "subtotal": 450.0,
+    "total": 490.5,
+    "line_items": [
+      {
+        "description": "Tomatoes, Roma",
+        "quantity": 30,
+        "unit_price": 3.19,
+        "line_total": 95.7,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Romaine Lettuce",
+        "quantity": 20,
+        "unit_price": 4.84,
+        "line_total": 96.8,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Onions Brown - 10kg bag",
+        "quantity": 6,
+        "unit_price": 14.0,
+        "line_total": 84.0,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Eggs, large (tray of 30)",
+        "quantity": 12,
+        "unit_price": 9.5,
+        "line_total": 114.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "Lemons",
+        "quantity": 10,
+        "unit_price": 5.95,
+        "line_total": 59.5,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "greenleaf_2026-06-15.pdf",
+    "supplier_name": "GreenLeaf Produce Co.",
+    "invoice_number": "GL-1006",
+    "invoice_date": "2026-06-15",
+    "subtotal": 450.2,
+    "total": 490.72,
+    "line_items": [
+      {
+        "description": "Tomatoes, Roma",
+        "quantity": 30,
+        "unit_price": 3.18,
+        "line_total": 95.4,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Romaine Lettuce",
+        "quantity": 20,
+        "unit_price": 4.81,
+        "line_total": 96.2,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Onions Brown - 10kg bag",
+        "quantity": 6,
+        "unit_price": 14.0,
+        "line_total": 84.0,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Eggs, large (tray of 30)",
+        "quantity": 12,
+        "unit_price": 9.5,
+        "line_total": 114.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "Lemons",
+        "quantity": 10,
+        "unit_price": 6.06,
+        "line_total": 60.6,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "greenleaf_2026-06-29.pdf",
+    "supplier_name": "GreenLeaf Produce Co.",
+    "invoice_number": "GL-1007",
+    "invoice_date": "2026-06-29",
+    "subtotal": 450.8,
+    "total": 491.37,
+    "line_items": [
+      {
+        "description": "Tomatoes, Roma",
+        "quantity": 30,
+        "unit_price": 3.21,
+        "line_total": 96.3,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Romaine Lettuce",
+        "quantity": 20,
+        "unit_price": 4.79,
+        "line_total": 95.8,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Onions Brown - 10kg bag",
+        "quantity": 6,
+        "unit_price": 14.0,
+        "line_total": 84.0,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Eggs, large (tray of 30)",
+        "quantity": 12,
+        "unit_price": 9.5,
+        "line_total": 114.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "Lemons",
+        "quantity": 10,
+        "unit_price": 6.07,
+        "line_total": 60.7,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "greenleaf_2026-07-13.pdf",
+    "supplier_name": "GreenLeaf Produce Co.",
+    "invoice_number": "GL-1008",
+    "invoice_date": "2026-07-13",
+    "subtotal": 458.0,
+    "total": 499.22,
+    "line_items": [
+      {
+        "description": "Tomatoes, Roma",
+        "quantity": 30,
+        "unit_price": 3.17,
+        "line_total": 95.1,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Romaine Lettuce",
+        "quantity": 20,
+        "unit_price": 4.84,
+        "line_total": 96.8,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Onions Brown - 10kg bag",
+        "quantity": 6,
+        "unit_price": 15.4,
+        "line_total": 92.4,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Eggs, large (tray of 30)",
+        "quantity": 12,
+        "unit_price": 9.5,
+        "line_total": 114.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "Lemons",
+        "quantity": 10,
+        "unit_price": 5.97,
+        "line_total": 59.7,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "greenleaf_2026-07-27.pdf",
+    "supplier_name": "GreenLeaf Produce Co.",
+    "invoice_number": "GL-1009",
+    "invoice_date": "2026-07-27",
+    "subtotal": 456.4,
+    "total": 497.48,
+    "line_items": [
+      {
+        "description": "Tomatoes, Roma",
+        "quantity": 30,
+        "unit_price": 3.17,
+        "line_total": 95.1,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Romaine Lettuce",
+        "quantity": 20,
+        "unit_price": 4.76,
+        "line_total": 95.2,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Onions Brown - 10kg bag",
+        "quantity": 6,
+        "unit_price": 15.4,
+        "line_total": 92.4,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Eggs, large (tray of 30)",
+        "quantity": 12,
+        "unit_price": 9.5,
+        "line_total": 114.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "Lemons",
+        "quantity": 10,
+        "unit_price": 5.97,
+        "line_total": 59.7,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "greenleaf_2026-08-10.pdf",
+    "supplier_name": "GreenLeaf Produce Co.",
+    "invoice_number": "GL-1010",
+    "invoice_date": "2026-08-10",
+    "subtotal": 458.3,
+    "total": 499.55,
+    "line_items": [
+      {
+        "description": "Roma Tomato",
+        "quantity": 30,
+        "unit_price": 3.22,
+        "line_total": 96.6,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Lettuce - Romaine (per kg)",
+        "quantity": 20,
+        "unit_price": 4.76,
+        "line_total": 95.2,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Onions Brown - 10kg bag",
+        "quantity": 6,
+        "unit_price": 15.4,
+        "line_total": 92.4,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Eggs, large (tray of 30)",
+        "quantity": 12,
+        "unit_price": 9.5,
+        "line_total": 114.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "Lemons",
+        "quantity": 10,
+        "unit_price": 6.01,
+        "line_total": 60.1,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "greenleaf_2026-08-24.pdf",
+    "supplier_name": "GreenLeaf Produce Co.",
+    "invoice_number": "GL-1011",
+    "invoice_date": "2026-08-24",
+    "subtotal": 458.6,
+    "total": 499.87,
+    "line_items": [
+      {
+        "description": "Roma Tomato",
+        "quantity": 30,
+        "unit_price": 3.21,
+        "line_total": 96.3,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Lettuce - Romaine (per kg)",
+        "quantity": 20,
+        "unit_price": 4.79,
+        "line_total": 95.8,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Onions Brown - 10kg bag",
+        "quantity": 6,
+        "unit_price": 15.4,
+        "line_total": 92.4,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Eggs, large (tray of 30)",
+        "quantity": 12,
+        "unit_price": 9.5,
+        "line_total": 114.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "Lemons",
+        "quantity": 10,
+        "unit_price": 6.01,
+        "line_total": 60.1,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "greenleaf_2026-09-07.pdf",
+    "supplier_name": "GreenLeaf Produce Co.",
+    "invoice_number": "GL-1012",
+    "invoice_date": "2026-09-07",
+    "subtotal": 456.1,
+    "total": 497.15,
+    "line_items": [
+      {
+        "description": "Roma Tomato",
+        "quantity": 30,
+        "unit_price": 3.17,
+        "line_total": 95.1,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Lettuce - Romaine (per kg)",
+        "quantity": 20,
+        "unit_price": 4.75,
+        "line_total": 95.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Onions Brown - 10kg bag",
+        "quantity": 6,
+        "unit_price": 15.4,
+        "line_total": 92.4,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Eggs, large (tray of 30)",
+        "quantity": 12,
+        "unit_price": 9.5,
+        "line_total": 114.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "Lemons",
+        "quantity": 10,
+        "unit_price": 5.96,
+        "line_total": 59.6,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "harbourline_2026-04-10.pdf",
+    "supplier_name": "Harbourline Dry Goods Pte Ltd",
+    "invoice_number": "HDG/2026/1001",
+    "invoice_date": "2026-04-10",
+    "subtotal": 1390.0,
+    "total": 1515.1,
+    "line_items": [
+      {
+        "description": "Cooking Oil 5L tin",
+        "quantity": 20,
+        "unit_price": 18.5,
+        "line_total": 370.0,
+        "pack_size": 5,
+        "pack_unit": "L"
+      },
+      {
+        "description": "Jasmine Rice 25kg",
+        "quantity": 8,
+        "unit_price": 42.0,
+        "line_total": 336.0,
+        "pack_size": 25,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Plain Flour 10kg",
+        "quantity": 12,
+        "unit_price": 16.0,
+        "line_total": 192.0,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "White Sugar 5kg",
+        "quantity": 10,
+        "unit_price": 7.2,
+        "line_total": 72.0,
+        "pack_size": 5,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Coffee Beans House Blend 1kg",
+        "quantity": 15,
+        "unit_price": 28.0,
+        "line_total": 420.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "harbourline_2026-05-10.pdf",
+    "supplier_name": "Harbourline Dry Goods Pte Ltd",
+    "invoice_number": "HDG/2026/1002",
+    "invoice_date": "2026-05-10",
+    "subtotal": 1390.0,
+    "total": 1515.1,
+    "line_items": [
+      {
+        "description": "Cooking Oil 5L tin",
+        "quantity": 20,
+        "unit_price": 18.5,
+        "line_total": 370.0,
+        "pack_size": 5,
+        "pack_unit": "L"
+      },
+      {
+        "description": "Jasmine Rice 25kg",
+        "quantity": 8,
+        "unit_price": 42.0,
+        "line_total": 336.0,
+        "pack_size": 25,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Plain Flour 10kg",
+        "quantity": 12,
+        "unit_price": 16.0,
+        "line_total": 192.0,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "White Sugar 5kg",
+        "quantity": 10,
+        "unit_price": 7.2,
+        "line_total": 72.0,
+        "pack_size": 5,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Coffee Beans House Blend 1kg",
+        "quantity": 15,
+        "unit_price": 28.0,
+        "line_total": 420.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "harbourline_2026-06-10.pdf",
+    "supplier_name": "Harbourline Dry Goods Pte Ltd",
+    "invoice_number": "HDG/2026/1003",
+    "invoice_date": "2026-06-10",
+    "subtotal": 1418.0,
+    "total": 1545.62,
+    "line_items": [
+      {
+        "description": "Cooking Oil 5L tin",
+        "quantity": 20,
+        "unit_price": 19.9,
+        "line_total": 398.0,
+        "pack_size": 5,
+        "pack_unit": "L"
+      },
+      {
+        "description": "Jasmine Rice 25kg",
+        "quantity": 8,
+        "unit_price": 42.0,
+        "line_total": 336.0,
+        "pack_size": 25,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Plain Flour 10kg",
+        "quantity": 12,
+        "unit_price": 16.0,
+        "line_total": 192.0,
+        "pack_size": 10,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "White Sugar 5kg",
+        "quantity": 10,
+        "unit_price": 7.2,
+        "line_total": 72.0,
+        "pack_size": 5,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Coffee Beans House Blend 1kg",
+        "quantity": 15,
+        "unit_price": 28.0,
+        "line_total": 420.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "harbourline_2026-07-10.pdf",
+    "supplier_name": "Harbourline Dry Goods Pte Ltd",
+    "invoice_number": "HDG/2026/1004",
+    "invoice_date": "2026-07-10",
+    "subtotal": 1438.0,
+    "total": 1567.42,
+    "line_items": [
+      {
+        "description": "Cooking Oil 5L tin",
+        "quantity": 20,
+        "unit_price": 19.9,
+        "line_total": 398.0,
+        "pack_size": 5,
+        "pack_unit": "L"
+      },
+      {
+        "description": "Jasmine Rice 25kg",
+        "quantity": 8,
+        "unit_price": 44.5,
+        "line_total": 356.0,
+        "pack_size": 25,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Plain Flour 9kg",
+        "quantity": 12,
+        "unit_price": 16.0,
+        "line_total": 192.0,
+        "pack_size": 9,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "White Sugar 5kg",
+        "quantity": 10,
+        "unit_price": 7.2,
+        "line_total": 72.0,
+        "pack_size": 5,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Coffee Beans House Blend 1kg",
+        "quantity": 15,
+        "unit_price": 28.0,
+        "line_total": 420.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "harbourline_2026-08-10.pdf",
+    "supplier_name": "Harbourline Dry Goods Pte Ltd",
+    "invoice_number": "HDG/2026/1005",
+    "invoice_date": "2026-08-10",
+    "subtotal": 1476.0,
+    "total": 1608.84,
+    "line_items": [
+      {
+        "description": "Cooking Oil 5L tin",
+        "quantity": 20,
+        "unit_price": 21.8,
+        "line_total": 436.0,
+        "pack_size": 5,
+        "pack_unit": "L"
+      },
+      {
+        "description": "Jasmine Rice 25kg",
+        "quantity": 8,
+        "unit_price": 44.5,
+        "line_total": 356.0,
+        "pack_size": 25,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Plain Flour 9kg",
+        "quantity": 12,
+        "unit_price": 16.0,
+        "line_total": 192.0,
+        "pack_size": 9,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "White Sugar 5kg",
+        "quantity": 10,
+        "unit_price": 7.2,
+        "line_total": 72.0,
+        "pack_size": 5,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Coffee Beans House Blend 1kg",
+        "quantity": 15,
+        "unit_price": 28.0,
+        "line_total": 420.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "harbourline_2026-09-10.pdf",
+    "supplier_name": "Harbourline Dry Goods Pte Ltd",
+    "invoice_number": "HDG/2026/1006",
+    "invoice_date": "2026-09-10",
+    "subtotal": 1476.0,
+    "total": 1608.84,
+    "line_items": [
+      {
+        "description": "Cooking Oil 5L tin",
+        "quantity": 20,
+        "unit_price": 21.8,
+        "line_total": 436.0,
+        "pack_size": 5,
+        "pack_unit": "L"
+      },
+      {
+        "description": "Jasmine Rice 25kg",
+        "quantity": 8,
+        "unit_price": 44.5,
+        "line_total": 356.0,
+        "pack_size": 25,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Plain Flour 9kg",
+        "quantity": 12,
+        "unit_price": 16.0,
+        "line_total": 192.0,
+        "pack_size": 9,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "White Sugar 5kg",
+        "quantity": 10,
+        "unit_price": 7.2,
+        "line_total": 72.0,
+        "pack_size": 5,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "Coffee Beans House Blend 1kg",
+        "quantity": 15,
+        "unit_price": 28.0,
+        "line_total": 420.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "northgate_2026-04-15.pdf",
+    "supplier_name": "Northgate Dairy & Meats",
+    "invoice_number": "NDM-1001",
+    "invoice_date": "2026-04-15",
+    "subtotal": 1495.0,
+    "total": 1629.55,
+    "line_items": [
+      {
+        "description": "FRESH MILK 2L",
+        "quantity": 80,
+        "unit_price": 5.6,
+        "line_total": 448.0,
+        "pack_size": 2,
+        "pack_unit": "L"
+      },
+      {
+        "description": "BUTTER UNSALTED 250G",
+        "quantity": 80,
+        "unit_price": 3.4,
+        "line_total": 272.0,
+        "pack_size": 250,
+        "pack_unit": "g"
+      },
+      {
+        "description": "CHICKEN THIGH BONELESS",
+        "quantity": 60,
+        "unit_price": 9.8,
+        "line_total": 588.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "EGGS LARGE TRAY/30",
+        "quantity": 10,
+        "unit_price": 8.7,
+        "line_total": 87.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "CREAM CHEESE 1KG BLOCK",
+        "quantity": 8,
+        "unit_price": 12.5,
+        "line_total": 100.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "northgate_2026-05-15.pdf",
+    "supplier_name": "Northgate Dairy & Meats",
+    "invoice_number": "NDM-1002",
+    "invoice_date": "2026-05-15",
+    "subtotal": 1495.0,
+    "total": 1629.55,
+    "line_items": [
+      {
+        "description": "FRESH MILK 2L",
+        "quantity": 80,
+        "unit_price": 5.6,
+        "line_total": 448.0,
+        "pack_size": 2,
+        "pack_unit": "L"
+      },
+      {
+        "description": "BUTTER UNSALTED 250G",
+        "quantity": 80,
+        "unit_price": 3.4,
+        "line_total": 272.0,
+        "pack_size": 250,
+        "pack_unit": "g"
+      },
+      {
+        "description": "CHICKEN THIGH BONELESS",
+        "quantity": 60,
+        "unit_price": 9.8,
+        "line_total": 588.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "EGGS LARGE TRAY/30",
+        "quantity": 10,
+        "unit_price": 8.7,
+        "line_total": 87.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "CREAM CHEESE 1KG BLOCK",
+        "quantity": 8,
+        "unit_price": 12.5,
+        "line_total": 100.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "northgate_2026-06-15.pdf",
+    "supplier_name": "Northgate Dairy & Meats",
+    "invoice_number": "NDM-1003",
+    "invoice_date": "2026-06-15",
+    "subtotal": 1527.0,
+    "total": 1664.43,
+    "line_items": [
+      {
+        "description": "FRESH MILK 2L",
+        "quantity": 80,
+        "unit_price": 5.6,
+        "line_total": 448.0,
+        "pack_size": 2,
+        "pack_unit": "L"
+      },
+      {
+        "description": "BUTTER UNSALTED 250G",
+        "quantity": 80,
+        "unit_price": 3.8,
+        "line_total": 304.0,
+        "pack_size": 250,
+        "pack_unit": "g"
+      },
+      {
+        "description": "CHICKEN THIGH BONELESS",
+        "quantity": 60,
+        "unit_price": 9.8,
+        "line_total": 588.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "EGGS LARGE TRAY/30",
+        "quantity": 10,
+        "unit_price": 8.7,
+        "line_total": 87.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "CREAM CHEESE 1KG BLOCK",
+        "quantity": 8,
+        "unit_price": 12.5,
+        "line_total": 100.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "northgate_2026-07-15.pdf",
+    "supplier_name": "Northgate Dairy & Meats",
+    "invoice_number": "NDM-1004",
+    "invoice_date": "2026-07-15",
+    "subtotal": 1527.0,
+    "total": 1664.43,
+    "line_items": [
+      {
+        "description": "FRESH MILK 2L",
+        "quantity": 80,
+        "unit_price": 5.6,
+        "line_total": 448.0,
+        "pack_size": 2,
+        "pack_unit": "L"
+      },
+      {
+        "description": "BUTTER UNSALTED 250G",
+        "quantity": 80,
+        "unit_price": 3.8,
+        "line_total": 304.0,
+        "pack_size": 250,
+        "pack_unit": "g"
+      },
+      {
+        "description": "CHICKEN THIGH BONELESS",
+        "quantity": 60,
+        "unit_price": 9.8,
+        "line_total": 588.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "EGGS LARGE TRAY/30",
+        "quantity": 10,
+        "unit_price": 8.7,
+        "line_total": 87.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "CREAM CHEESE 1KG BLOCK",
+        "quantity": 8,
+        "unit_price": 12.5,
+        "line_total": 100.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "northgate_2026-08-15.pdf",
+    "supplier_name": "Northgate Dairy & Meats",
+    "invoice_number": "NDM-1005",
+    "invoice_date": "2026-08-15",
+    "subtotal": 1547.0,
+    "total": 1686.23,
+    "line_items": [
+      {
+        "description": "FRESH MILK 2L",
+        "quantity": 80,
+        "unit_price": 5.85,
+        "line_total": 468.0,
+        "pack_size": 2,
+        "pack_unit": "L"
+      },
+      {
+        "description": "BUTTER UNSALTED 250G",
+        "quantity": 80,
+        "unit_price": 3.8,
+        "line_total": 304.0,
+        "pack_size": 250,
+        "pack_unit": "g"
+      },
+      {
+        "description": "CHICKEN THIGH BONELESS",
+        "quantity": 60,
+        "unit_price": 9.8,
+        "line_total": 588.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "EGGS LARGE TRAY/30",
+        "quantity": 10,
+        "unit_price": 8.7,
+        "line_total": 87.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "CREAM CHEESE 1KG BLOCK",
+        "quantity": 8,
+        "unit_price": 12.5,
+        "line_total": 100.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  },
+  {
+    "file": "northgate_2026-09-15.pdf",
+    "supplier_name": "Northgate Dairy & Meats",
+    "invoice_number": "NDM-1006",
+    "invoice_date": "2026-09-15",
+    "subtotal": 1547.0,
+    "total": 1686.23,
+    "line_items": [
+      {
+        "description": "FRESH MILK 2L",
+        "quantity": 80,
+        "unit_price": 5.85,
+        "line_total": 468.0,
+        "pack_size": 2,
+        "pack_unit": "L"
+      },
+      {
+        "description": "BUTTER UNSALTED 250G",
+        "quantity": 80,
+        "unit_price": 3.8,
+        "line_total": 304.0,
+        "pack_size": 250,
+        "pack_unit": "g"
+      },
+      {
+        "description": "CHICKEN THIGH BONELESS",
+        "quantity": 60,
+        "unit_price": 9.8,
+        "line_total": 588.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      },
+      {
+        "description": "EGGS LARGE TRAY/30",
+        "quantity": 10,
+        "unit_price": 8.7,
+        "line_total": 87.0,
+        "pack_size": 30,
+        "pack_unit": "each"
+      },
+      {
+        "description": "CREAM CHEESE 1KG BLOCK",
+        "quantity": 8,
+        "unit_price": 12.5,
+        "line_total": 100.0,
+        "pack_size": 1,
+        "pack_unit": "kg"
+      }
+    ]
+  }
+]

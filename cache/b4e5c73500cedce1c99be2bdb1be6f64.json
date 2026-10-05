@@ -1,0 +1,48 @@
+{
+  "supplier_name": "GreenLeaf Produce Co.",
+  "invoice_number": "GL-1003",
+  "invoice_date": "2026-05-04",
+  "subtotal": 448.4,
+  "line_items": [
+    {
+      "description": "Tomatoes, Roma",
+      "quantity": 30,
+      "unit_price": 3.17,
+      "line_total": 95.1,
+      "pack_size": 1,
+      "pack_unit": "kg"
+    },
+    {
+      "description": "Romaine Lettuce",
+      "quantity": 20,
+      "unit_price": 4.8,
+      "line_total": 96.0,
+      "pack_size": 1,
+      "pack_unit": "kg"
+    },
+    {
+      "description": "Onions Brown - 10kg bag",
+      "quantity": 6,
+      "unit_price": 14.0,
+      "line_total": 84.0,
+      "pack_size": 10,
+      "pack_unit": "kg"
+    },
+    {
+      "description": "Eggs, large (tray of 30)",
+      "quantity": 12,
+      "unit_price": 9.5,
+      "line_total": 114.0,
+      "pack_size": 30,
+      "pack_unit": "each"
+    },
+    {
+      "description": "Lemons",
+      "quantity": 10,
+      "unit_price": 5.93,
+      "line_total": 59.3,
+      "pack_size": 1,
+      "pack_unit": "kg"
+    }
+  ]
+}
