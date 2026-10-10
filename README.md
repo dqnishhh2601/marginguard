@@ -8,7 +8,7 @@ MarginGuard reads a café or restaurant's supplier invoices, tracks the real pri
 
 | | |
 |---|---|
-| 🎥 Demo video | _add YouTube link_ |
+| 🎥 Demo video | https://youtu.be/3ET2RMZYTdk |
 | 🌐 Live app | [marginguard-crossdash.streamlit.app](https://marginguard-crossdash.streamlit.app) |
 
 ![Dashboard screenshot](docs/screenshot-dashboard.png)
