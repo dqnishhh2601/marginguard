@@ -266,6 +266,14 @@ def benchmark(item_series, profile_name, market, currency="SGD"):
                 f"Commodity prices are published about two months behind; the comparison covers {m_period}. "
                 f"Your price has not changed materially since then.")
 
+    stale = [d for d in usable if d["meta"].get("outdated")] if prof["primary"] else []
+    if stale:
+        out["stale_data"] = True
+        out["limitations"].append(
+            f"The market data used is out of date (latest month {pd.Timestamp(stale[0]['meta']['last_obs']):%b %Y}), "
+            f"usually because the live download failed and a cached copy was used. Treat this comparison as "
+            f"indicative only, and refresh the market data before relying on it.")
+        out["verdict_text"] += " (Based on out-of-date market data: indicative only.)"
     for c in context:
         if not c["available"]:
             continue

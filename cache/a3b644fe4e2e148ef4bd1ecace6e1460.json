@@ -1,0 +1,7 @@
+{
+  "tool": "market_benchmark",
+  "args": {
+    "profile": "Edible oils"
+  },
+  "reason": "Check if the price increase is in line with global edible oil prices to understand if it's a market-driven change."
+}

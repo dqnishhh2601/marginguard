@@ -22,6 +22,7 @@ import pandas as pd
 import streamlit as st
 
 import insights
+import investigator
 import llm
 import market
 from analyze import TO_BASE
@@ -113,6 +114,8 @@ hr, [data-testid="stDivider"] {{margin: 1rem 0; border-color: {T["border"]};}}
 .mg-big {{font-size: 1.3rem; font-weight: 650; color: {T["text"]}; line-height: 1.2;
           font-variant-numeric: tabular-nums;}}
 .mg-muted {{color: {T["text2"]}; font-size: .86rem;}}
+.mg-cite {{font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: {T["accent2"]};
+           background: {tint(T["accent"], .10)}; border-radius: 3px; padding: 0 4px; margin-left: 2px;}}
 .mg-verdict {{font-size: 1rem; line-height: 1.5; margin: .2rem 0 .4rem 0; color: {T["text"]};}}
 .mg-step {{display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .06em;
            text-transform: uppercase; color: {T["accent2"]}; background: {tint(T["accent"], .12)};
@@ -135,7 +138,7 @@ TRACK_TONE = {"Not started": "grey", "Saved": "blue", "Under review": "amber", "
 
 ss = st.session_state
 for k, v in {"overrides": {}, "quotes": [], "pass_through": 0.5, "revenue": 0.0, "cogs": 0.0, "sel": None,
-             "horizon": 3, "actions": {}, "shock": 0.0, "fx": 0.0}.items():
+             "horizon": 3, "actions": {}, "shock": 0.0, "fx": 0.0, "investigations": {}}.items():
     ss.setdefault(k, v)
 
 
@@ -177,9 +180,12 @@ def load_demo(threshold):
     return run([(p.name, p) for p in SAMPLES], threshold)
 
 
-@st.cache_data(ttl=6 * 3600, show_spinner="Loading market data…")
+@st.cache_data(ttl=6 * 3600, max_entries=2, show_spinner="Loading market data…")
 def load_market():
     return market.get_all()
+
+
+RETRY_FALLBACK_MIN = 10   # a failed live download is retried automatically after this many minutes
 
 
 # --- Sidebar -----------------------------------------------------------------
@@ -207,6 +213,10 @@ with st.sidebar:
         cfg = llm.config()
         st.caption(f"Model: `{cfg['model']}`")
         st.caption("API key set." if cfg["api_key"] else "No API key: only the sample invoices will work.")
+    refresh_mk = st.button("Refresh market data", use_container_width=True,
+                           help="Downloads the latest published prices from FRED now, bypassing the 6-hour cache. "
+                                "Limited to once a minute.")
+    mk_msg = st.empty()
 
 # --- Load invoices + market data ---------------------------------------------
 load_error = None
@@ -232,17 +242,57 @@ else:
     if res and ss.get("upload_thr") != threshold:
         st.sidebar.caption("Threshold changed: click Analyze again to apply it.")
 
+if refresh_mk:
+    ok, wait = market.refresh_allowed()
+    if ok:
+        load_market.clear()
+        ss["mk_msg"] = ("refresh", None)
+    else:
+        ss["mk_msg"] = ("wait", wait)
 MK = load_market()
+_checked = min(pd.Timestamp(m["checked_at"].replace(" UTC", "")) for _, m in MK.values())
+if (any(m["status"] != "live" for _, m in MK.values())
+        and pd.Timestamp.now(tz="UTC").tz_localize(None) - _checked > pd.Timedelta(minutes=RETRY_FALLBACK_MIN)):
+    # Don't let one failed download pin cached data for the whole 6-hour cache window.
+    load_market.clear()
+    MK = load_market()
+_msg = ss.pop("mk_msg", None)
+if _msg and _msg[0] == "refresh":
+    (mk_msg.success if all(m["status"] == "live" for _, m in MK.values()) else mk_msg.warning)(
+        market.summary(MK) + ".")
+elif _msg:
+    mk_msg.info(f"Market data was refreshed moments ago. Try again in {_msg[1]}s.")
+MK_FP = market.fingerprint(MK)
+
+DATA_STATUS = {"live": ("Live verified", "green"), "cached": ("Cached data", "grey"),
+               "demo": ("Demo data", "amber"), "unavailable": ("Unavailable", "grey")}
+
+
+def data_badge(status, outdated=False):
+    label, tone = DATA_STATUS.get(status, DATA_STATUS["unavailable"])
+    if status == "cached" and outdated:
+        label, tone = "Cached data, outdated", "amber"
+    return pill(label, tone)
+
+
+def status_text(m):
+    """Short table cell: status plus why it isn't live."""
+    label = DATA_STATUS.get(m["status"], DATA_STATUS["unavailable"])[0]
+    return label + (" (outdated)" if m.get("outdated") else "")
 
 
 def market_status():
-    modes = [m["mode"] for _, m in MK.values()]
-    if all(m == "live" for m in modes):
-        return pill(f"Market data: live from FRED, {date.today():%d %b %Y}", "green")
-    if any(m == "live" for m in modes):
-        return pill("Market data: partly live, partly saved snapshot", "amber")
-    if any(m == "snapshot" for m in modes):
-        return pill(f"Market data: saved snapshot, {market.SNAPSHOT_DATE} (live source unreachable)", "amber")
+    metas = [m for _, m in MK.values()]
+    st_ = [m["status"] for m in metas]
+    latest = max((m["last_obs"] for m in metas if m["last_obs"] and m["kind"] != "fx"), default=None)
+    obs = f", latest month {pd.Timestamp(latest):%b %Y}" if latest else ""
+    stale = any(m.get("outdated") for m in metas)
+    if all(x == "live" for x in st_):
+        return pill(f"Market data: live verified{obs}", "green")
+    if any(x == "live" for x in st_):
+        return pill(f"Market data: partly live, partly cached{obs}", "amber" if stale else "grey")
+    if any(x == "cached" for x in st_):
+        return pill(f"Market data: cached{obs} (live download failed)", "amber" if stale else "grey")
     return pill("Market data unavailable", "red")
 
 
@@ -511,6 +561,237 @@ def page_overview():
         st.caption("Monthly totals follow delivery timing, so a dip or spike isn't always a price change.")
 
 
+# --- AI Procurement Investigator ----------------------------------------------
+AI_STATUS = {"review_needed": ("AI: review needed", "red"), "act_now": ("AI: act now", "red"),
+             "in_line": ("AI: in line with market", "green"),
+             "insufficient_evidence": ("AI: not enough evidence", "grey")}
+PROV = {"invoice": ("Your invoices", "blue"), "live": ("Live verified", "green"), "cached": ("Cached data", "grey"),
+        "snapshot": ("Cached data", "grey"), "manual": ("Entered by you", "blue"), "synthetic": ("Demo data", "amber"),
+        "derived": ("Calculated", "grey"), "unavailable": ("Unavailable", "grey")}
+COMP = {"comparable": ("Comparable", "green"), "potentially_comparable": ("Possibly comparable", "amber"),
+        "not_comparable": ("Not comparable", "red"), "insufficient_information": ("Not enough information", "grey"),
+        "not_checked": ("Match not checked", "grey")}
+TOOL_NAME = {"price_history": "Price history", "market_benchmark": "Market benchmark",
+             "market_context": "Fuel and currency", "supplier_options": "Supplier options",
+             "assess_comparability": "Product comparability", "calculate_savings": "Savings calculator",
+             "finish": "Finish", "stop": "Stopped"}
+
+
+def cites(ids):
+    return "".join(f"<span class='mg-cite'>{escape(i)}</span>" for i in ids or [])
+
+
+def inv_signature(b):
+    """What an investigation depended on, so a stale one can be spotted after settings change."""
+    return [b["profile"], ss.get("currency", "SGD"), len(ss["quotes"]), MK_FP]
+
+
+def run_label(calls):
+    live, cached = calls.get("live", 0), calls.get("cached", 0)
+    if live and not cached:
+        return f"Live AI run ({live} model calls)", "green"
+    if cached and not live:
+        return f"Replayed from saved AI responses ({cached} calls)", "blue"
+    return f"Mixed: {live} live, {cached} replayed AI calls", "blue"
+
+
+def ai_section(k, item, supplier, f, b):
+    st.subheader("Investigate")
+    saved = ss["investigations"].get(k)
+    with st.container(border=True):
+        a, bcol = st.columns([4, 1.4])
+        a.markdown("An AI analyst works through this price rise step by step. It chooses which check to run next "
+                   "from six tools (your invoices, market benchmarks, fuel and currency, supplier options, "
+                   "product comparability, savings), then writes findings that cite the evidence behind them.")
+        a.caption("Money is always calculated by MarginGuard, never by the AI. News and online catalogues are "
+                  "not connected, so the AI cannot cite them.")
+        go_btn = bcol.button("Run again" if saved else "Investigate", key=f"inv_{k}", type="primary",
+                             use_container_width=True)
+        if saved and bcol.button("Clear", key=f"invclr_{k}", use_container_width=True):
+            ss["investigations"].pop(k, None)
+            st.rerun()
+    if go_btn:
+        case = investigator.Case(item=item, supplier=supplier, series=res["series"], lines=res["lines"],
+                                 stats=D["stats"], finding=f, market=MK, profile=b["profile"],
+                                 currency=ss.get("currency", "SGD"), quotes=list(ss["quotes"]))
+        with st.status("Investigating…", expanded=True) as box:
+            try:
+                inv = investigator.investigate(case, on_step=lambda msg: (box.update(label=msg), box.write(msg)))
+            except llm.LLMError as e:
+                box.update(label="The AI model could not be reached", state="error")
+                st.error(f"The investigation needs the AI model, which could not be reached: {e} Add an API key "
+                         f"under **AI model** in the sidebar. Investigations saved with the app can be replayed "
+                         f"without a key; this one has not been saved yet.")
+                return
+            box.update(label=f"Investigation complete · {len(inv.evidence)} pieces of evidence", state="complete",
+                       expanded=False)
+        ss["investigations"][k] = {"inv": inv.to_dict(), "sig": inv_signature(b)}
+        saved = ss["investigations"][k]
+    if saved:
+        render_investigation(saved["inv"], k, stale=saved["sig"] != inv_signature(b))
+
+
+def render_investigation(inv, k, stale=False):
+    evid = {e["id"]: e for e in inv["evidence"]}
+    lab, tone = run_label(inv["llm_calls"])
+    s_lab, s_tone = AI_STATUS.get(inv["status"], AI_STATUS["insufficient_evidence"])
+    steps = sum(1 for t in inv["trace"] if t["status"] == "ok" and t["tool"] not in ("finish",))
+    md(pill(s_lab, s_tone) + pill(lab, tone) + pill(f"{steps} checks · {len(evid)} evidence items", "grey")
+       + pill(f"Run {inv['started']}", "grey"))
+    if stale:
+        st.warning("The benchmark, currency, quotes or market data have changed since this investigation ran, "
+                   "so its findings may be out of date. Run it again to recalculate them.")
+    for c in inv["validation"]["conflicts"]:
+        st.warning(f"Conflicting evidence: {c} The calculated status above stands; check the evidence below.")
+
+    # A. Executive summary
+    st.markdown("**A. Summary**")
+    md(f"<div class='mg-verdict'>{escape(inv['assessment']) or 'The AI gave no summary.'}</div>")
+
+    # B. What we found
+    st.markdown("**B. What we found**")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.markdown("Verified by evidence")
+        for x in inv["verified_facts"] or [{"text": "Nothing the AI could verify.", "evidence": []}]:
+            md(f"<div class='mg-muted'>• {escape(x['text'])} {cites(x['evidence'])}</div>")
+    with c2:
+        st.markdown("Possible, not verified")
+        for x in inv["possible_explanations"] or [{"text": "None suggested.", "evidence": []}]:
+            flag = " <span class='mg-pill mg-amber'>figure not in evidence</span>" if x.get("unsupported") else ""
+            md(f"<div class='mg-muted'>• {escape(x['text'])} {cites(x['evidence'])}{flag}</div>")
+    with c3:
+        st.markdown("Missing evidence")
+        for x in inv["missing_evidence"] or ["Nothing listed."]:
+            md(f"<div class='mg-muted'>• {escape(x)}</div>")
+
+    # C. Market context
+    st.markdown("**C. Market context**")
+    mkt = [e for e in inv["evidence"] if e["tool"] in ("market_benchmark", "market_context")]
+    if not mkt:
+        st.caption("The AI did not check market data for this item.")
+    details = []
+    for e in mkt:
+        pv = e["content"].get("provenance")
+        badge = (data_badge(pv["status"], pv.get("outdated")) if pv and e["provenance"] != "unavailable"
+                 else pill(*PROV[e["provenance"]]))
+        fresh = (f"<div class='mg-muted' style='margin:-2px 0 6px 0;font-size:.8rem'>{escape(pv['freshness'])}</div>"
+                 if pv and pv.get("freshness") and e["provenance"] != "unavailable" else "")
+        md(f"<div class='mg-muted'>{cites([e['id']])} <b>{escape(e['title'])}</b> {badge} "
+           f"{escape(e['summary'])}</div>{fresh}")
+        if pv:
+            details.append({"ID": e["id"], "Series": e["title"], "Status": DATA_STATUS.get(pv["status"], ("?",))[0]
+                            + (" (outdated)" if pv.get("outdated") else ""),
+                            "Latest observation": pv["last_obs"], "Period used": e["observed"] or "—",
+                            "Observations held": f"{pv['first_obs']} to {pv['last_obs']}" if pv["first_obs"] else "—",
+                            "Downloaded": pv["retrieved_at"] or "—", "Checked": pv["checked_at"] or "—",
+                            "Currency": pv["currency"], "Unit": pv["unit"], "Source": pv["source"],
+                            "Cached copy": pv["cache_source"] or "—",
+                            "Why not live": pv["fallback_reason"] if pv["status"] != "live" else "—",
+                            "Link": pv["source_url"]})
+    if details:
+        with st.expander("Source details"):
+            st.dataframe(pd.DataFrame(details), hide_index=True, use_container_width=True,
+                         column_config={"Link": st.column_config.LinkColumn(display_text="Open on FRED")})
+            st.caption("'Downloaded' is when MarginGuard fetched the data; 'Latest observation' is the month the "
+                       "price refers to. Each comparison stops at the latest observation: supplier changes after "
+                       "it are reported as not yet checkable, never explained by older market data. All are raw "
+                       "commodity prices, not the wholesale product you buy.")
+
+    # D. Alternatives
+    st.markdown("**D. Alternatives**")
+    opts = [e for e in inv["evidence"] if e["tool"] == "supplier_options"]
+    if not opts:
+        st.caption("The AI did not look for alternative suppliers.")
+    rows = []
+    for e in opts:
+        if e["provenance"] == "unavailable":
+            say(e["summary"], st.caption)
+            continue
+        comp = next((x["content"] for x in inv["evidence"] if x["tool"] == "assess_comparability"
+                     and x["content"].get("option_id") == e["id"]), None)
+        sav = next((x["content"] for x in inv["evidence"] if x["tool"] == "calculate_savings"
+                    and x["content"].get("option_id") == e["id"]), None)
+        cls = comp["classification"] if comp else ("comparable" if e["content"].get("kind") == "invoice"
+                                                    else "not_checked")
+        saving = "—"
+        if sav and sav.get("ok"):
+            saving = "not claimed" if cls == "not_comparable" else f"{money(sav['net_annual'])}/yr"
+        rows.append({"ID": e["id"], "Option": e["title"], "Source": PROV[e["provenance"]][0],
+                     "Product match": COMP[cls][0], "Saving": saving,
+                     "Basis": (sav or {}).get("basis", "not calculated") if saving != "not claimed" else "—",
+                     "Why": (comp or {}).get("explanation", "")})
+    if rows:
+        st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
+
+    # E. Actions
+    st.markdown("**E. Recommended actions**")
+    if not inv["actions"]:
+        st.caption("The AI recommended no actions.")
+    item, supplier = split_key(k)
+    for i, a in enumerate(inv["actions"]):
+        aid = f"{item}||{supplier}||ai:{a['type']}:{a.get('option_id') or ''}"
+        with st.container(border=True):
+            left, right = st.columns([4, 1.4])
+            left.markdown(f"**{esc(a['title'] or a['type'].replace('_', ' ').capitalize())}**")
+            md_txt = f"<div class='mg-muted'>{escape(a['why'])} {cites(a['evidence'])}</div>"
+            left.markdown(md_txt, unsafe_allow_html=True)
+            if a.get("unsupported"):
+                left.caption("Contains a figure that is not in the evidence: "
+                             + ", ".join(esc(x) for x in a["unsupported"]))
+            if a["impact"] is not None:
+                right.markdown(f"<div class='mg-big'>{escape(money(a['impact']))}/yr</div>"
+                               f"<div class='mg-muted'>{escape(a['impact_label'])}</div>", unsafe_allow_html=True)
+            else:
+                right.markdown(f"<div class='mg-muted'>{escape(a['impact_label'].capitalize())}</div>",
+                               unsafe_allow_html=True)
+            if aid in ss["actions"]:
+                right.markdown(pill(f"In tracker: {ss['actions'][aid]['status']}", "blue"), unsafe_allow_html=True)
+            elif right.button("Save to tracker", key=f"ais_{i}_{aid}", use_container_width=True):
+                is_saving = a["impact"] is not None and a["impact_label"].startswith("saving")
+                ss["actions"][aid] = {"item": item, "supplier": supplier, "action": a["title"] or a["type"],
+                                      "status": "Saved",
+                                      "expected_monthly": round(a["impact"] / 12, 2) if is_saving else 0.0,
+                                      "actual_monthly": 0.0, "date": date.today().isoformat(),
+                                      "note": "From AI investigation. Evidence: " + ", ".join(a["evidence"])}
+                st.rerun()
+    if inv["actions"]:
+        st.page_link(PAGES["savings"], label="Open the action tracker on Savings", icon=":material/arrow_forward:")
+
+    # F. Evidence and methodology
+    st.markdown("**F. Evidence and method**")
+    with st.expander(f"All evidence ({len(evid)} items)"):
+        st.dataframe(pd.DataFrame([{"ID": e["id"], "From": TOOL_NAME.get(e["tool"], e["tool"]),
+                                    "Evidence": e["title"], "Data": PROV[e["provenance"]][0],
+                                    "Period": e["observed"], "Detail": e["summary"], "Source": e["source"],
+                                    "Retrieved": e["retrieved"], "Link": e["url"] or None}
+                                   for e in inv["evidence"]]),
+                     hide_index=True, use_container_width=True,
+                     column_config={"Link": st.column_config.LinkColumn(display_text="Open")})
+    with st.expander("How the AI investigated (step by step)"):
+        st.dataframe(pd.DataFrame([{"Step": t["step"], "Check": TOOL_NAME.get(t["tool"], t["tool"]),
+                                    "Arguments": ", ".join(f"{a}={v}" for a, v in t["args"].items()) or "—",
+                                    "AI's reason": t["reason"], "Result": t["status"],
+                                    "Evidence": ", ".join(t["evidence"]) or "—"} for t in inv["trace"]]),
+                     hide_index=True, use_container_width=True)
+        st.caption(f"The AI chose each check after seeing the evidence so far, up to {investigator.MAX_STEPS} "
+                   f"checks. Unknown tools, missing arguments and repeats are rejected and the AI is told why. "
+                   f"Took {inv['seconds']:.0f}s.")
+    with st.expander("Checks on the AI's answer"):
+        v = inv["validation"]
+        st.markdown("- Citations to evidence that doesn't exist: "
+                    + (", ".join(v["dropped_citations"]) + " (removed)" if v["dropped_citations"] else "none"))
+        say("- Figures in the AI's text that aren't in the evidence: "
+            + (", ".join(v["unsupported_figures"]) + " (flagged)" if v["unsupported_figures"] else "none"))
+        if v.get("downgraded_facts"):
+            st.markdown("- Claims the AI called verified without valid evidence (not shown as verified): "
+                        + "; ".join(esc(x) for x in v["downgraded_facts"]))
+        st.markdown("- Conflicts with the calculated market check: " + ("; ".join(v["conflicts"]) or "none"))
+        st.caption("Every money figure in this report comes from MarginGuard's calculations. Product "
+                   "descriptions and quotes are passed to the AI as data, and it is told never to follow "
+                   "instructions inside them.")
+
+
 def page_cost():
     header("Cost Intelligence", "The verdict first. The evidence is underneath.")
     need_data()
@@ -558,7 +839,7 @@ def page_cost():
         md(f"<div class='mg-verdict'>{escape(b['unverified_text'])}</div>")
     if status == "review":
         say(f"**What this means:** the part covered by market data looks reasonable, but "
-            f"{money((b['above_market_per_unit'] + b['unverified_per_unit']) * stat['monthly_qty'] * 12)}/yr of "
+            f"{money(((b['above_market_per_unit'] if b['verdict'] == 'exceeds' else 0) + b['unverified_per_unit']) * stat['monthly_qty'] * 12)}/yr of "
             f"this increase has no market explanation yet. Ask before you absorb it.")
     elif status == "exceeds":
         say(f"**What this means:** your supplier moved further than the market over the same months. "
@@ -592,6 +873,9 @@ def page_cost():
                 goto(k, PAGES["savings"])
             if bcol.button("See forecast", key=f"cf_{i}", use_container_width=True):
                 goto(k, PAGES["forecast"])
+
+    # ---- AI investigation
+    ai_section(k, item, supplier, f, b)
 
     # ---- Chart
     st.subheader("Your price against the market")
@@ -628,9 +912,8 @@ def page_cost():
     with st.expander("Data sources"):
         if b["evidence"]:
             st.dataframe(pd.DataFrame([{"Series": m["title"], "Source": m["source"], "Units": m["unit"],
-                                        "Latest month": m["last_obs"],
-                                        "Data": "Live" if m["mode"] == "live" else f"Snapshot ({m['retrieved']})",
-                                        "Link": m["url"]} for m in b["evidence"]]),
+                                        "Latest month": m["last_obs"], "Data": status_text(m),
+                                        "Downloaded": m["retrieved_at"], "Link": m["url"]} for m in b["evidence"]]),
                          hide_index=True, use_container_width=True,
                          column_config={"Link": st.column_config.LinkColumn(display_text="Open on FRED")})
         else:
@@ -813,7 +1096,7 @@ def page_forecast():
         if shocked is not None:
             legend += " Amber dashed: your scenario from Step 2."
         say(f"{legend} Source: {meta['source']}, "
-            f"{'live' if meta['mode'] == 'live' else 'snapshot ' + str(meta['retrieved'])}; latest observation "
+            f"{status_text(meta).lower()}, downloaded {meta['retrieved_at']}; latest observation "
             f"{meta['last_obs']}.", st.caption)
 
     # ============================================================= Step 3: business impact
@@ -1118,15 +1401,22 @@ def page_data():
         if not res["warnings"] and not res["errors"]:
             st.success(f"All {s['invoices']} invoices passed the arithmetic checks.")
     with t3:
+        md(market_status())
         st.dataframe(pd.DataFrame([{"Series": m["title"], "FRED id": sid, "Units": m["unit"], "Source": m["source"],
-                                    "Latest month": m["last_obs"], "Status": m["mode"].capitalize(),
-                                    "Retrieved": m["retrieved"], "Link": m["url"]}
+                                    "Data": status_text(m), "Observations": f"{m['first_obs']} to {m['last_obs']}",
+                                    "Downloaded": m["retrieved_at"], "Checked": m["checked_at"],
+                                    "Why not live": m["fallback_reason"] if m["status"] != "live" else "—",
+                                    "Link": m["url"]}
                                    for sid, (_, m) in MK.items()]),
                      hide_index=True, use_container_width=True,
                      column_config={"Link": st.column_config.LinkColumn(display_text="Open")})
-        st.caption("Fetched live from FRED's free CSV download and cached for 6 hours. If that fails, the saved "
-                   f"snapshot from {market.SNAPSHOT_DATE} is used and labelled as such. Commodity prices are "
-                   "published monthly, about two months behind.")
+        st.caption("Live-first: every load tries FRED's free CSV download, checks the response (layout, dates, "
+                   "values) and keeps it for 6 hours. If the download fails, the last good download is used, "
+                   f"or the copy shipped with the app (downloaded {market.SNAPSHOT_DATE}), labelled 'Cached data' "
+                   f"with the reason. A failed download is retried after {RETRY_FALLBACK_MIN} minutes, or now with "
+                   "'Refresh market data' in the sidebar. 'Downloaded' is when the data was fetched; 'Observations' "
+                   "is the months the prices refer to. Commodity prices are published monthly, about two to three "
+                   "months behind, so even live data ends a few months before today.")
     with t4:
         say(f"""
 **From your invoices (deterministic code, no AI)**

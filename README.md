@@ -28,7 +28,7 @@ Price rises rarely arrive as one big announcement. They show up as a few cents m
 | Page | Question it answers |
 |---|---|
 | **Overview** | What changed, what is it costing me, and what should I do first? |
-| **Cost Intelligence** | Why did it rise? Is my supplier's increase in line with world market prices? |
+| **Cost Intelligence** | Why did it rise? Is my supplier's increase in line with world market prices? Then *Investigate*: an AI analyst chooses which checks to run and writes cited findings. |
 | **Forecast & Scenarios** | Three steps: where might the market go, what if it goes differently, and what would that cost me? |
 | **Savings** | Which actions save the most, which cheaper suppliers do I already have, and is a new quote worth switching for? |
 | **Data & Checks** | What exactly did the AI read, and how was every number calculated? |
@@ -44,7 +44,7 @@ On the 24 sample invoices (3 suppliers, April–September 2026) it finds **$2,10
 
 That cooking oil row is the point of the whole design. Comparing a supplier's April–September rise with April–July market data would make any supplier look guilty. MarginGuard compares matched periods, then reports the unverifiable part separately.
 
-Market figures above are from the saved snapshot (FRED, retrieved 10 Oct 2026); the live app uses the latest published data, so they can change.
+Market figures above use FRED data whose latest published month was July 2026 (checked on FRED on 10 Oct 2026). When FRED publishes a newer month, the live app picks it up and recalculates, so they can change.
 
 ## How it works
 
@@ -65,12 +65,23 @@ flowchart LR
 
 ### Why this is more than an AI wrapper
 
-- **AI does three distinct jobs**, each where it's better than rules: reading messy invoices in any layout, matching product names across suppliers, and turning findings into plain-English advice and an email.
+- **AI does four distinct jobs**, each where it's better than rules: reading messy invoices in any layout, matching product names across suppliers, investigating a price rise by choosing which checks to run, and turning findings into plain-English advice and an email.
 - **AI output is verified, not trusted.** Every extraction is checked with arithmetic (quantity × unit price = line total; lines add up to the subtotal). If a check fails, the model is told what was wrong and asked to correct itself; anything still wrong is shown as a warning.
 - **The AI never does maths.** Every dollar figure, percentage, benchmark, forecast and saving is calculated in deterministic Python, with unit tests.
 - **Honest about evidence.** Market data can show that an increase is *in line with* or *larger than* the market. It can't prove *why* a supplier raised a price, so the app separates verified facts, comparisons and unverifiable explanations, and lists the limitations of each comparison.
 - **Price per base unit**, not per pack, is what makes shrinkflation visible.
 - **Measured accuracy:** on the 24 sample invoices the AI read **99.2% of line-item fields correctly (595/600)**, all 48 invoice dates and numbers were correct, and 23 of 24 invoices were read perfectly (run `python evaluate.py`). The one miss was a garbled product name (`J000asmine Rice`) with every number right; the matching step still grouped it correctly.
+
+### AI Procurement Investigator (agentic)
+
+On **Cost Intelligence**, *Investigate* hands one price rise to an AI analyst that decides what to check next.
+
+- **The model chooses the tools.** After the invoice history (always first), the LLM picks the next step from five tools given the evidence so far: market benchmark, fuel and currency context, supplier options, product comparability and savings calculator. It replies in JSON; code rejects unknown tools, missing arguments and repeats, tells the model why, and stops after 8 steps (and 3 comparability checks).
+- **Tools are code, not the model.** They read your invoices, the FRED market series and quotes you entered. Each result becomes numbered evidence (E1, E2, …) labelled *your invoices*, *live verified*, *cached data*, *entered by you*, *demo data*, *calculated* or *unavailable*. Market evidence also carries its source, link, download time, latest observation month, currency, unit and, if it isn't live, why.
+- **Product comparability** is the one tool that asks the model a question, inside fixed rules: a product matched across your own invoices is comparable; a different unit (kg vs litre) is *not comparable* whatever the model says; a quote with no specification can't be called comparable. Product text is passed as data, and the model is told never to follow instructions in it.
+- **The report cites its evidence, and code checks it:** citations to evidence that doesn't exist are removed; a "verified fact" without valid evidence, or with a figure that isn't in the evidence, is demoted; any other number not in the evidence is flagged; disagreement with the calculated market check is shown as a conflict. Every money figure comes from the tools, never from the model's text.
+- **Report:** summary; verified / possible / missing evidence; market context; alternatives with product match and saving; actions with *Save to tracker*; and the full evidence table, step-by-step trace and validation checks.
+- **Honest labels:** each run says whether it was a *live AI run* or *replayed from saved AI responses*. News search and online supplier catalogues are **not connected**; the investigator says so and cites nothing from them.
 
 ### Market check, forecasts and recommendations
 
@@ -95,11 +106,16 @@ flowchart LR
 | Data | Source | Live or demo |
 |---|---|---|
 | Your purchases | Your invoice PDFs | **Demo:** 24 fictional invoices (`sample_invoices/`), clearly labelled in the app |
-| Palm oil, soybean oil, wheat, Thai rice, sugar, Arabica coffee, poultry | IMF Primary Commodity Prices, via [FRED](https://fred.stlouisfed.org/) | Live (free CSV, no key, cached 6 hours); falls back to a labelled snapshot in `market_data/` |
+| Palm oil, soybean oil, wheat, Thai rice, sugar, Arabica coffee, poultry | IMF Primary Commodity Prices, via [FRED](https://fred.stlouisfed.org/) | Live-first (free CSV, no key); see below |
 | Brent crude | IMF via FRED | Same |
 | SGD per US$ | Federal Reserve G.5, via FRED | Same |
 
-Commodity prices are monthly averages, published with a delay of about two months. Refresh the snapshot with `python market.py`.
+**Market data freshness, live-first:**
+1. **Live verified:** every load downloads from FRED, checks the response (CSV layout, at least two years of monthly data, no future dates, no duplicate or non-positive values) and keeps it for 6 hours.
+2. **Cached data:** if the download fails or is invalid, the last good download (`market_cache/`) is used, or else the copy shipped with the app (`market_data/`). It keeps its original download time, never "now", and the reason for the fallback is shown. A failed download is retried after 10 minutes, or straight away with **Refresh market data** in the sidebar (limited to once a minute, and FRED rate limits are reported).
+3. **Unavailable:** if neither exists, the comparison says so. There is no synthetic market data.
+
+Two dates are kept apart: when the data was **downloaded**, and the **latest month the prices refer to**. Commodity prices are monthly averages published two to three months late, so even live data ends before today (on 10 Oct 2026, FRED's latest palm oil month was July 2026). Data more than 4 months behind is flagged as outdated and its comparisons are marked indicative only. Comparisons always stop at the latest published month; supplier changes after it are never explained with older market data. When newer data arrives, benchmarks are recalculated, and any AI investigation that used the old data is marked out of date. Refresh the shipped copy with `python market.py`.
 
 ## Tech stack
 
@@ -122,7 +138,7 @@ cp .env.example .env        # then put your API key in .env
 streamlit run app.py
 ```
 
-The sample invoices work without an API key because their AI results are cached in `cache/`. Your own invoices need a key. Market data needs internet access; without it the app uses the saved snapshot and says so.
+The sample invoices work without an API key because their AI results are cached in `cache/`. Your own invoices need a key. Market data needs internet access; without it the app uses cached data and says why.
 
 Other commands:
 
@@ -131,6 +147,8 @@ python pipeline.py              # run the invoice pipeline in the terminal on th
 python evaluate.py              # measure extraction accuracy against the known answers
 python tests/test_pipeline.py   # offline test of validation, matching and maths (no API key)
 python tests/test_insights.py   # tests for benchmarks, forecasts, scenarios, savings and rankings
+python tests/test_investigator.py  # AI investigator with a scripted fake model (no API key)
+python tests/test_market.py     # live-first market data, fallbacks, validation and freshness (no network)
 python market.py                # refresh the market-data snapshot from FRED
 python generate_samples.py      # regenerate the sample invoices
 ```
@@ -143,15 +161,16 @@ pipeline.py          Runs extract → normalize → analyze → recommend
 extract.py           PDF → text → LLM → validated JSON (with self-correction)
 normalize.py         LLM product matching across suppliers
 analyze.py           Price maths, shrinkflation, supplier gaps (no AI)
+investigator.py      AI Procurement Investigator: tools, evidence store, bounded orchestrator, citation checks
 insights.py          Classification, matched-period benchmarks, forecasts, scenarios, impact, savings, ranked actions (no AI)
-market.py            FRED market data: live fetch, snapshot fallback, period alignment
+market.py            FRED market data: validated live fetch, cached fallbacks, provenance and freshness, period alignment
 recommend.py         LLM action plan + supplier email
 llm.py               OpenAI-compatible client with on-disk cache
 evaluate.py          Extraction accuracy vs ground truth
 generate_samples.py  Creates the 24 fictional sample invoices
 market_data/         Snapshot of the market series (FRED, retrieved 10 Oct 2026)
 sample_invoices/     Sample PDFs, ground_truth.json, PLANTED_CHANGES.md
-tests/               Offline tests (pipeline with a fake LLM; 20 tests for the decision-support maths)
+tests/               Offline tests: pipeline with a fake LLM, 29 for the decision-support maths, 23 for the investigator
 ```
 
 ## What works and what doesn't
@@ -166,10 +185,13 @@ tests/               Offline tests (pipeline with a fake LLM; 20 tests for the d
 - Ranked, rules-based recommendations; savings, money flagged for review, expected and realised kept separate
 - Supplier comparison per kg / litre / item with landed cost, minimum order and gross-vs-net labelling
 - An action tracker for what you did and what it actually saved
+- AI investigator that chooses its own checks, cites evidence and has its citations and figures verified in code
 - AI action plan and supplier email
 
 **Not yet**
 - Photos or scanned paper invoices (would need OCR or a vision model)
+- **News and supply-disruption search** for the investigator: not connected, so it can't cite news and says so
+- The investigator has been tested with a scripted fake model and a small number of real runs; real model behaviour varies between runs
 - **Live online supplier search:** reliable product prices need a paid shopping or search API. Instead the app uses your own invoices, quotes you enter and a web-search shortcut; it never shows unverified prices as real.
 - Market benchmarks for dairy, eggs, fresh produce, packaging and electricity (no comparable free series connected); these items say "no benchmark"
 - Commodity prices are raw-material prices in US$, not the wholesale product you buy, so comparisons are indicators, not proof
