@@ -1,18 +1,20 @@
-# Demo video script (target 2:45, max 4:00)
+# Demo video script (target 3:00, max 4:00)
 
-Record your screen with the app open. One person narrates, or split it between you.
+Record your screen with the live app open on the **Overview** page. One person narrates, or split it between you.
 Upload to YouTube as **Public** (not unlisted or private).
 
 | Time | On screen | Say (roughly) |
 |---|---|---|
-| 0:00–0:25 | A stack of invoices (the sample PDFs open side by side) | "Small restaurants keep about 5 cents of every dollar as profit. When a supplier raises prices, it doesn't come with an announcement. It's a few cents on an invoice, a renamed product, or a 10kg bag that quietly becomes 9kg. Owners don't have time to check every line, so it eats their margin." |
-| 0:25–0:35 | App home screen | "MarginGuard reads your supplier invoices and tells you what changed, what it costs you, and what to do." |
-| 0:35–1:00 | Click **Analyze invoices**, progress bar runs | "Here are 24 invoices from three suppliers over six months, each with a different layout. The AI reads every line, and our code double-checks its work with the invoice maths. If something doesn't add up, the AI is told what's wrong and fixes it." |
-| 1:00–1:30 | KPIs + alert list | "It found six price increases costing $2,100 a year, 4% of this café's supplier spend. Cooking oil went up 18% in two quiet steps." |
-| 1:30–1:55 | Pick **Plain flour** in the chart | "This one's sneaky: the price never changed, but the bag shrank from 10 to 9 kilos. Because we track price per kilo, we catch it." |
-| 1:55–2:10 | Eggs alert | "The AI also recognised that two suppliers sell the same eggs under different names, and one is 9% cheaper." |
-| 2:10–2:25 | Email draft | "And it drafts the email to push back, ready to edit and send." |
-| 2:25–2:45 | "Extracted data" / "How the numbers work" tabs, then README architecture diagram | "Under the hood: an open-source LLM on Featherless reads and matches products, pandas does all the maths so every number is verifiable, and the AI turns the results into advice. It reads XX% of invoice fields correctly on our test set." |
-| 2:45–2:55 | App | "MarginGuard: protect your margin, one invoice at a time." |
+| 0:00–0:20 | The sample invoice PDFs open side by side | "Small restaurants keep about 5 cents of every dollar as profit. Supplier price rises don't come with an announcement. They hide in a few cents on an invoice, or a 10kg bag that quietly becomes 9kg. And even when owners notice, they can't tell whether it's the market or their supplier, so they don't know whether to push back." |
+| 0:20–0:45 | **Overview**: the four numbers, then the priority actions | "MarginGuard reads your invoices and turns them into decisions. This café has 24 invoices from three suppliers. Six price rises, costing $2,100 a year. But look at how it splits the money: about $490 it can back with evidence, and $1,290 it says you should question first. It won't claim a saving it can't prove." |
+| 0:45–1:25 | Click **Investigate** on cooking oil → **Cost Intelligence**: status pill, four metrics, the verdict | "Cooking oil is up 18%. Now, the easy thing would be to shout 'above market'. MarginGuard doesn't. Commodity prices are published two months late, so it compares the same months on both sides. Over April to July, the supplier moved 7.6% and world oil prices moved 3.1%. Broadly in line. But a further 9.5% landed after the market data ends, and that part, about $450 a year, has no explanation yet. So the status is 'review needed', and it tells you exactly what to ask." |
+| 1:25–1:40 | Point at the chart's dashed red line, then open **Method and limitations** | "The dashed line is where market data stops. Every benchmark is labelled a market proxy, not a quote for what you actually buy, and the limitations are written out." |
+| 1:40–2:00 | Switch item to **Plain flour**, then **Jasmine rice** | "Flour is a different story: the bag shrank, but wheat rose just as much, so it's in line with the market. Plan for it, don't fight it. Rice is the opposite: the supplier is up 6%, but rice prices are up 22%. More may be coming." |
+| 2:00–2:30 | **Forecast & Scenarios** on rice: walk down Step 1, 2, 3 | "The forecast page asks three questions in order. Step one: where might the market go? The baseline is flat, and it says so honestly: three methods were tested and carrying the last price forward was the most accurate. Step two: what if it isn't? Drag the shock to plus twenty percent. Step three updates instantly: the supplier price, the new monthly spend, and the cumulative cost over the horizon. Not annualised, because a three-month exposure isn't a year." |
+| 2:25–2:55 | **Savings**: comparison table, add the fictional demo quote, then the tracker | "Then the comparison. The same eggs are 9% cheaper at a supplier you already use. Enter a new quote and it compares landed cost per litre, including delivery, and flags it if the minimum order is more than you'd use. Pick an action, mark it implemented, and record what you actually saved. Expected and realised stay separate." |
+| 2:55–3:10 | **Data & Checks**, then the architecture diagram in the README | "Underneath: an open-source model on Featherless reads invoices at 99% field accuracy, market data comes live from the St. Louis Fed, and every number is calculated and unit-tested in code, never by the AI." |
+| 3:10–3:15 | Overview | "MarginGuard: know why your costs rise, what's next, and what to do about it." |
 
-Tips: record at 1080p, zoom the browser to 110–125% so text is readable, close other tabs and notifications, do a practice run first.
+Tips: record at 1080p, zoom the browser to 110–125% so text is readable, close other tabs and notifications, and do a practice run first. Say "demo data" once so judges know the invoices are fictional. If the market-data label shows "snapshot", that's fine; just don't call it live.
+
+The cooking oil section (0:45–1:40) is the strongest part of the demo: it shows judges an app that refuses to overclaim. Don't rush it.

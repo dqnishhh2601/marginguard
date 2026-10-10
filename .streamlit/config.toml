@@ -1,5 +1,14 @@
+# MarginGuard "Midnight Slate" theme.
+# These five values are what Streamlit itself uses to style every built-in widget,
+# so they are the single source of truth. app.py mirrors them in its TOKENS dict
+# for the handful of things Streamlit's theme cannot reach (card surfaces, pills,
+# chart colours). Change a colour here and in TOKENS together.
 [theme]
-primaryColor = "#d9480f"
+base = "dark"
+primaryColor = "#38B6C9"             # accent: primary buttons, selected controls, focus
+backgroundColor = "#0B1120"          # main canvas: midnight navy
+secondaryBackgroundColor = "#151F30" # sidebar, cards, table headers, widget surfaces
+textColor = "#E2E8F0"                # primary text
 
 [server]
 maxUploadSize = 50
