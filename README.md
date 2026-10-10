@@ -208,6 +208,6 @@ For a café spending about $4,200 a month on supplies, MarginGuard surfaced abou
 
 ## Built during ForgeHacks 2026
 
-Built between October 3–10, 2026 by Danish ([@dqnishhh2601](https://github.com/dqnishhh2601)) and _[friend's name]_.
+Built between October 3–10, 2026 by Danish ([@dqnishhh2601](https://github.com/dqnishhh2601)) and Chris ([@chrisjm5](https://github.com/chrisjm5))
 
 **AI use, honestly:** besides the LLM inside the product, we used Claude (an AI assistant) to help plan the project and to write most of the code, sample data, market-data integration and documentation. We ran it, measured its accuracy (99.2%), fixed the problems we found, deployed it, and reviewed and edited everything, including this write-up, which Claude helped draft. All sample invoices and businesses are fictional; market data is real and sourced.
